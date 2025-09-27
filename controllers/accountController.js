@@ -27,7 +27,7 @@ async function buildRegister(req, res, next) {
 }
 
 /* ****************************************
-*  Process Registration
+*  Process registration
 * *************************************** */
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
@@ -76,7 +76,7 @@ async function registerAccount(req, res) {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
       title: "Registration",
-      nav,
+      nav
     })
   }
 }

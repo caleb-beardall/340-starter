@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator")
 const validate = {}
 
 /* ****************************************
-*  Registration Data Validation Rules
+*  Login Data Validation Rules
 *  I CREATED THIS
 * *************************************** */
 validate.loginRules = () => {
@@ -38,23 +38,21 @@ validate.registrationRules = () => {
         // firstname is required and must be a string
         body("account_firstname")
             .trim()
-            .isString()
-            .isLength({ min: 1 })
+            .notEmpty({ min: 1 })
             .withMessage("Please provide a first name."), // on error this message is sent
         
         // lastname is required and must be string
         body("account_lastname")
             .trim()
-            .isString()
-            .isLength({ min: 2 })
+            .notEmpty({ min: 1 })
             .withMessage("Please provide a last name."), // on error this message is sent
         
         // valid email is required and cannot already exist in the database
         body("account_email")
             .trim()
-            .isEmail()
+            .notEmpty().withMessage("Email is required.")
+            .isEmail().withMessage("A valid email is required.")
             .normalizeEmail() // refer to validator.js docs (https://github.com/validatorjs/validator.js)
-            .withMessage("A valid email is required.")
             .custom(async (account_email) => {
                 const emailExists = await accountModel.checkExistingEmail(account_email)
                 if (emailExists) {
@@ -65,6 +63,7 @@ validate.registrationRules = () => {
         // password is required and must be strong password
         body("account_password")
             .trim()
+            .notEmpty().withMessage("Password is required.")
             .isStrongPassword({
                 minLength: 12,
                 minLowercase: 1,
@@ -90,7 +89,7 @@ validate.checkLogData = async (req, res, next) => {
             errors,
             title: "Login",
             nav,
-            account_email,
+            account_email
         })
         return
     }
@@ -112,7 +111,7 @@ validate.checkRegData = async (req, res, next) => {
             nav,
             account_firstname,
             account_lastname,
-            account_email,
+            account_email
         })
         return
     }

@@ -84,6 +84,16 @@ Util.buildVehicleGrid = async function (data) {
   return grid
 }
 
+/* **************************************
+* Build the inventory management menu HTML
+* ************************************ */
+Util.buildInvManagementGrid = async function () {
+  let grid = '<a href="../../inv/add-classification" title="View add new classification form">Add New Classification</a>'
+  grid += '<br>'
+  grid += '<a href="../../inv/add-vehicle" title="View add new vehicle form">Add New Vehicle</a>'
+  return grid
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
