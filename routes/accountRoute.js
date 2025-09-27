@@ -3,7 +3,7 @@ const express = require("express")
 const router = new express.Router()
 const accController = require("../controllers/accountController")
 const utilities = require("../utilities")
-const regValidate = require("../utilities/account-validation")
+const accValidate = require("../utilities/account-validation")
 
 // Route to build login view
 router.get("/login", utilities.handleErrors(accController.buildLogin));
@@ -14,9 +14,22 @@ router.get("/register", utilities.handleErrors(accController.buildRegister))
 // Handle POST requests to register a new user account
 router.post(
     "/register",
-    regValidate.registrationRules(),
-    regValidate.checkRegData,
+    accValidate.registrationRules(),
+    accValidate.checkRegData,
     utilities.handleErrors(accController.registerAccount)
+)
+
+// Process the login attempt
+router.post(
+    "/login",
+    /*
+    accValidate.loginRules(),
+    accValidate.checkLogData,
+    utilities.handleErrors(accController.accountLogin) // MAKE LOGIN ACCOUNT
+    */
+    (req, res) => {
+        res.status(200).send('login process')
+    }
 )
 
 module.exports = router;
