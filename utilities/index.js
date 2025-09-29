@@ -53,7 +53,7 @@ Util.buildClassificationGrid = async function(data){
     })
     grid += '</ul>'
   } else { 
-    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    grid = '<p class="notice-bad">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
 }
@@ -79,7 +79,7 @@ Util.buildVehicleGrid = async function (data) {
     grid += '</ul>'
     grid += '</article>'
   } else {
-    grid = '<p class="notice">Sorry, the vehicle could not be found.</p>'
+    grid = '<p class="notice-bad">Sorry, the vehicle could not be found.</p>'
   }
   return grid
 }
@@ -90,9 +90,31 @@ Util.buildVehicleGrid = async function (data) {
 Util.buildInvManagementGrid = async function () {
   let grid = '<a href="../../inv/add-classification" title="View add new classification form">Add New Classification</a>'
   grid += '<br>'
-  grid += '<a href="../../inv/add-vehicle" title="View add new vehicle form">Add New Vehicle</a>'
+  grid += '<a href="../../inv/add-inventory" title="View add new vehicle form">Add New Vehicle</a>'
   return grid
 }
+
+/* **************************************
+* Build the classification dropdown list
+* ************************************ */
+Util.buildClassificationList = async function (classification_id = null) {
+    let data = await invModel.getClassifications()
+    let classificationList =
+      '<select name="classification_id" id="classificationList" required>'
+    classificationList += '<option value="">Choose a Classification</option>'
+    data.rows.forEach((row) => {
+      classificationList += '<option value="' + row.classification_id + '"'
+      if (
+        classification_id != null &&
+        row.classification_id == classification_id
+      ) {
+        classificationList += ' selected '
+      }
+      classificationList += '>' + row.classification_name + '</option>'
+    })
+    classificationList += '</select>'
+    return classificationList
+  }
 
 /* ****************************************
  * Middleware For Handling Errors

@@ -6,6 +6,11 @@
   /***** Color *****/
   --blue-light: #60A5FA;
   --blue-dark: #1E3A8A;
+  --red-light: #F87171;
+  --red-dark: #B91C1C;
+  --green-light: #34D399;
+  --green-dark: #065F46;
+
 
   --gray-light: #F3F4F6;
   --gray-medium: #9CA3AF;
@@ -326,6 +331,123 @@ footer {
 
 footer p a {
   color: white;
+}
+
+/***** Notice *****/
+.notice-bad {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--red-dark);
+  background-color: #F8717150; /* ~30% opacity */
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.notice-good {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--green-dark);
+  background-color: #34D39950; /* ~30% opacity */
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.notice-bad li,
+.notice-good li {
+  list-style: none;
+}
+
+/***** Forms *****/
+form {
+  grid-column: span 2;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: var(--gray-light);
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+fieldset {
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+label {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: black;
+  margin-bottom: 0.25rem;
+}
+
+input,
+select {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+input:focus:valid {
+  color: var(--green-dark);
+  background-color: #34D39950; /* ~30% opacity */
+}
+
+input:focus:invalid {
+  color: var(--red-dark);
+    background-color: #F8717150; /* ~30% opacity */
+}
+
+fieldset div {
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--red-dark);
+  background-color: #F8717150;
+  padding: 1rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+#loginForm fieldset button,
+#registerForm fieldset button,
+#addInvForm fieldset button,
+#addClassForm fieldset button {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: 2px solid var(--blue-dark);
+  border-radius: 0.25rem;
+  color: var(--blue-dark);
+  padding: 0.5rem;
+}
+
+#loginForm fieldset button:hover,
+#registerForm fieldset button:hover,
+#addInvForm fieldset button:hover,
+#addClassForm fieldset button:hover {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.25rem;
+  border: 2px solid black;
+  color: black;
+  padding: 0.5rem;
+}
+
+#sign-up-link {
+    border: unset;
+    color: black;
+    background-color: unset;
+    padding: unset;
+    margin: 1rem 0 0 0;
 }
 
 /***** Screen Size Media Queries *****/

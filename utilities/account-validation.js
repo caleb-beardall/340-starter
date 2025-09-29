@@ -35,19 +35,19 @@ validate.loginRules = () => {
 * *************************************** */
 validate.registrationRules = () => {
     return [
-        // firstname is required and must be a string
+        // firstname rules
         body("account_firstname")
             .trim()
             .notEmpty({ min: 1 })
             .withMessage("Please provide a first name."), // on error this message is sent
         
-        // lastname is required and must be string
+        // lastname rules
         body("account_lastname")
             .trim()
             .notEmpty({ min: 1 })
             .withMessage("Please provide a last name."), // on error this message is sent
         
-        // valid email is required and cannot already exist in the database
+        // email rules
         body("account_email")
             .trim()
             .notEmpty().withMessage("Email is required.")
@@ -60,7 +60,7 @@ validate.registrationRules = () => {
                 }
             }),
         
-        // password is required and must be strong password
+        // password rules
         body("account_password")
             .trim()
             .notEmpty().withMessage("Password is required.")

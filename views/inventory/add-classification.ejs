@@ -9,7 +9,7 @@
 <%- messages() %>
 
 <% if (errors) { %>
-    <ul class="notice">
+    <ul class="notice-bad">
     <% errors.array().forEach(error=> { %>
         <li>
             <%= error.msg %>
@@ -20,7 +20,7 @@
 
 <form id="addClassForm" action="/inv/add-classification" method="POST">
     <fieldset>
-        <label for="classification">Classification name:</label>
+        <label for="classification">Classification Name</label>
         <input
             type="text"
             name="classification_name"
@@ -29,7 +29,7 @@
             pattern="^[A-Za-z]+$"
             title="Only letters are allowed—no numbers, spaces, or special characters.">
             
-        <div><i>Only letters are allowed—no numbers, spaces, or special characters.</i></div>
+        <div><p>Only letters are allowed—no numbers, spaces, or special characters.</p></div>
 
         <button type="submit">Add Classification</button>
     </fieldset>

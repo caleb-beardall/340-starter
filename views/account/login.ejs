@@ -7,7 +7,7 @@
 <%- messages() %>
 
 <% if (errors) { %>
-    <ul class="notice">
+    <ul class="notice-bad">
     <% errors.array().forEach(error=> { %>
         <li>
             <%= error.msg %>
@@ -18,10 +18,10 @@
 
 <form id="loginForm" action="/account/login" method="POST">
     <fieldset>
-        <label for="email">Email:</label>
+        <label for="email">Email</label>
         <input type="email" name="account_email" id="email" placeholder="john.doe@example.com" required value="<%= locals.account_email %>">
 
-        <label for="password">Password:</label>
+        <label for="password">Password</label>
         <input
             type="password"
             name="account_password"
@@ -35,7 +35,7 @@
 
         <button type="submit">Login</button>
 
-        <div>
+        <div id="sign-up-link">
             <p>No Account? <a href="/account/register">Sign-up</a></p>
         </div>
 

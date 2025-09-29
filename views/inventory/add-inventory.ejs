@@ -1,0 +1,123 @@
+<%# title %>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%# message %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form id="addInvForm" action="/inv/add-inventory" method="POST">
+    <fieldset>
+        <%- classificationList %>
+        <label for="invmake">Make</label>
+        <input
+            type="text"
+            name="inv_make"
+            id="invmake"
+            placeholder="min of 3 characters"
+            pattern="^[A-Za-z0-9\- ]{3,}$"
+            title="Must be at least 3 characters. Letters, numbers, spaces, and dashes allowed."
+            value="<%= locals.inv_make %>"
+            required>
+        
+        <label for="invmodel">Model</label>
+        <input
+            type="text"
+            name="inv_model"
+            id="invmodel"
+            placeholder="min of 3 characters"
+            pattern="^[A-Za-z0-9\- ]{3,}$"
+            title="Must be at least 3 characters. Letters, numbers, spaces, and dashes allowed."
+            value="<%= locals.inv_model %>"
+            required>
+
+        <label for="invdescription">Description</label>
+        <input
+            type="text"
+            name="inv_description"
+            id="invdescription"
+            value="<%= locals.inv_description %>"
+            required>
+
+        <label for="invimage">Image Path</label>
+        <input
+            type="text"
+            name="inv_image"
+            id="invimage"
+            value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>"
+            required>
+
+        <label for="invthumbnail">Thumbnail Path</label>
+        <input
+            type="text"
+            name="inv_thumbnail"
+            id="invthumbnail"
+            value="<%= locals.inv_thumbnail || '/images/vehicles/no-image.png' %>"
+            required>
+
+        <label for="invprice">Price</label>
+        <input
+            type="text"
+            name="inv_price"
+            id="invprice"
+            placeholder="decimal or integer"
+            pattern="^\d+(\.\d{1,2})?$"
+            title="Enter a valid price (whole number or up to 2 decimal places)."
+            value="<%= locals.inv_price %>"
+            required>
+
+        <label for="invyear">Year</label>
+        <input
+            type="text"
+            name="inv_year"
+            id="invyear"
+            placeholder="4-digit year"
+            required
+            pattern="^\d{4}$"
+            title="Enter a 4-digit year."
+            value="<%= locals.inv_year %>"
+            required>
+
+        <label for="invmiles">Miles</label>
+        <input
+            type="text"
+            name="inv_miles"
+            id="invmiles"
+            placeholder="digits only"
+            required
+            pattern="^\d+$"
+            title="Enter miles as digits only—no commas or decimals."
+            value="<%= locals.inv_miles %>"
+            required>
+
+        <label for="invcolor">Color</label>
+        <input
+            type="text"
+            name="inv_color"
+            id="invcolor"
+            required
+            pattern="^[A-Za-z ]+$"
+            title="Only letters and spaces allowed."
+            value="<%= locals.inv_color %>"
+            required>
+
+        <div>
+            <p>All fields are required.</p>
+        </div>
+
+        <button type="submit">Add Vehicle</button>
+
+    </fieldset>
+</form>
