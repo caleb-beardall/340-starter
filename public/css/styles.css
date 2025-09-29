@@ -333,7 +333,11 @@ footer p a {
   color: white;
 }
 
-/***** Notice *****/
+/***** Message and Notice *****/
+#messages {
+  grid-column: span 2;
+}
+
 .notice-bad {
   grid-column: span 2;
   display: flex;

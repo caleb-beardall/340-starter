@@ -90,7 +90,7 @@ Util.buildVehicleGrid = async function (data) {
 Util.buildInvManagementGrid = async function () {
   let grid = '<a href="../../inv/add-classification" title="View add new classification form">Add New Classification</a>'
   grid += '<br>'
-  grid += '<a href="../../inv/add-inventory" title="View add new vehicle form">Add New Vehicle</a>'
+  grid += '<a href="../../inv/add-inventory" title="View add new inventory form">Add New Inventory</a>'
   return grid
 }
 
