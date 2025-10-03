@@ -11,6 +11,9 @@ router.get("/login", utilities.handleErrors(accController.buildLogin));
 // Route to build registration view
 router.get("/register", utilities.handleErrors(accController.buildRegister))
 
+// Route to build the management view
+router.get("/", utilities.handleErrors(accController.buildAccManagement));
+
 // Handle POST requests to register a new user account
 router.post(
     "/register",
@@ -19,17 +22,12 @@ router.post(
     utilities.handleErrors(accController.registerAccount)
 )
 
-// Process the login attempt
+// Handle POST requests to login
 router.post(
     "/login",
-    /*
     accValidate.loginRules(),
     accValidate.checkLogData,
-    utilities.handleErrors(accController.accountLogin) // MAKE LOGIN ACCOUNT
-    */
-    (req, res) => {
-        res.status(200).send('login process')
-    }
+    utilities.handleErrors(accController.accountLogin)
 )
 
 module.exports = router;

@@ -12,13 +12,15 @@ validate.loginRules = () => {
         // email rules ***NEEDS TO BE UPDATED***
         body("account_email")
             .trim()
-            .isEmail()
+            .notEmpty().withMessage("Email is required.")
+            .isEmail().withMessage("A valid email is required.")
             .normalizeEmail() // refer to validator.js docs (https://github.com/validatorjs/validator.js)
             .withMessage("A valid email is required."),
         
         // password rules ***NEEDS TO BE UPDATED***
         body("account_password")
             .trim()
+            .notEmpty().withMessage("Password is required.")
             .isStrongPassword({
                 minLength: 12,
                 minLowercase: 1,
