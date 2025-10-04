@@ -5,14 +5,17 @@ const accController = require("../controllers/accountController")
 const utilities = require("../utilities")
 const accValidate = require("../utilities/account-validation")
 
+// Route to build the account management view
+router.get(
+    "/",
+    utilities.checkLogin,
+    utilities.handleErrors(accController.buildAccManagement))
+
 // Route to build login view
 router.get("/login", utilities.handleErrors(accController.buildLogin));
 
 // Route to build registration view
 router.get("/register", utilities.handleErrors(accController.buildRegister))
-
-// Route to build the management view
-router.get("/", utilities.handleErrors(accController.buildAccManagement));
 
 // Handle POST requests to register a new user account
 router.post(

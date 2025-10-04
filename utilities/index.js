@@ -87,16 +87,6 @@ Util.buildVehicleGrid = async function (data) {
 }
 
 /* **************************************
-* Build the inventory management menu HTML
-* ************************************ */
-Util.buildInvManagementGrid = async function () {
-  let grid = '<a href="../../inv/add-classification" title="View add new classification form">Add New Classification</a>'
-  grid += '<br>'
-  grid += '<a href="../../inv/add-inventory" title="View add new inventory form">Add New Inventory</a>'
-  return grid
-}
-
-/* **************************************
 * Build the classification dropdown list
 * ************************************ */
 Util.buildClassificationList = async function (classification_id = null) {
@@ -146,6 +136,18 @@ Util.checkJWTToken = (req, res, next) => {
  } else {
   next()
  }
+}
+
+/* ****************************************
+* Middleware to check login
+**************************************** */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice-bad", "Please log in.")
+    return res.redirect("/account/login")
+  }
 }
 
 module.exports = Util

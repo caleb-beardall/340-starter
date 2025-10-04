@@ -424,7 +424,8 @@ fieldset div {
 #loginForm fieldset button,
 #registerForm fieldset button,
 #addInvForm fieldset button,
-#addClassForm fieldset button {
+#addClassForm fieldset button,
+#editInvForm fieldset button {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -437,13 +438,23 @@ fieldset div {
 #loginForm fieldset button:hover,
 #registerForm fieldset button:hover,
 #addInvForm fieldset button:hover,
-#addClassForm fieldset button:hover {
+#addClassForm fieldset button:hover,
+#editInvForm fieldset button:hover {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
   border: 2px solid black;
   color: black;
   padding: 0.5rem;
+}
+
+#editInvForm fieldset button:disabled {
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: 2px solid var(--gray-dark);
+    color: var(--gray-dark);
+    padding: 0.5rem;
 }
 
 #sign-up-link {
