@@ -425,7 +425,8 @@ fieldset div {
 #registerForm fieldset button,
 #addInvForm fieldset button,
 #addClassForm fieldset button,
-#editInvForm fieldset button {
+#editInvForm fieldset button,
+#deleteInvForm fieldset button {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -439,7 +440,8 @@ fieldset div {
 #registerForm fieldset button:hover,
 #addInvForm fieldset button:hover,
 #addClassForm fieldset button:hover,
-#editInvForm fieldset button:hover {
+#editInvForm fieldset button:hover,
+#deleteInvForm fieldset button:hover {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;

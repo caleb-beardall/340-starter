@@ -1,0 +1,48 @@
+<%# title %>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%# message %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form id="deleteInvForm" action="/inv/delete" method="POST">
+    <fieldset>
+            <label for="invmake">Make</label>
+            <input type="text" name="inv_make" id="invmake" readonly
+                <% if (locals.inv_make) { %> value="<%= locals.inv_make %>" <% } %>>
+
+            <label for="invmodel">Model</label>
+            <input type="text" name="inv_model" id="invmodel" readonly
+                <% if (locals.inv_model) { %> value="<%= locals.inv_model %>" <% } %>>
+
+            <label for="invprice">Price</label>
+            <input type="text" name="inv_price" id="invprice" readonly
+                <% if (locals.inv_price) { %> value="<%= locals.inv_price %>" <% } %>>
+
+            <label for="invyear">Year</label>
+            <input type="text" name="inv_year" id="invyear" readonly
+                <% if (locals.inv_year) { %> value="<%= locals.inv_year %>" <% } %>>
+
+            <div>
+                <p>Confirm Deletion - The delete is permanent.</p>
+            </div>
+
+            <button type="submit">Delete Vehicle</button>
+
+            <input type="hidden" name="inv_id"
+            <% if (locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+    </fieldset>
+</form>

@@ -15,33 +15,38 @@ router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByI
 router.get(
     "/add-classification",
     utilities.checkLogin,
-    utilities.handleErrors(invController.buildAddClassification))
+    utilities.handleErrors(invController.buildAddClassification)
+)
 
 // Route to build the add inventory view
 router.get(
     "/add-inventory",
     utilities.checkLogin,
-    utilities.handleErrors(invController.buildAddInventory))
+    utilities.handleErrors(invController.buildAddInventory)
+)
 
 // Handle POST requests to add a new classification
 router.post(
     "/add-classification",
     invValidate.classificationRules(),
     invValidate.checkClassData,
-    utilities.handleErrors(invController.addClassification))
+    utilities.handleErrors(invController.addClassification)
+)
 
 // Handle POST request to add a new inventory
 router.post(
     "/add-inventory",
     invValidate.inventoryRules(),
     invValidate.checkInvData,
-    utilities.handleErrors(invController.addInventory))
+    utilities.handleErrors(invController.addInventory)
+)
 
 // Route to build the inventory management view
 router.get(
     "/",
     utilities.checkLogin,
-    utilities.handleErrors(invController.buildInvManagement))
+    utilities.handleErrors(invController.buildInvManagement)
+)
 
 // Route to build getInventory using classification id
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
@@ -49,12 +54,23 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 // Route to build the edit inventory view
 router.get("/edit/:inv_id",
     utilities.checkLogin,
-    utilities.handleErrors(invController.buildEditInventory))
+    utilities.handleErrors(invController.buildEditInventory)
+)
 
 // Handle POST request to update inventory
 router.post("/update/",
     invValidate.inventoryRules(),
     invValidate.checkUpdateData,
-    utilities.handleErrors(invController.updateInventory))
+    utilities.handleErrors(invController.updateInventory)
+)
+
+// Route to build the delete inventory view
+router.get("/delete/:inv_id",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.buildDeleteInventory)
+)
+
+// Handle POST request to delete inventory
+router.post("/delete", utilities.handleErrors(invController.deleteInventory))
 
 module.exports = router;
