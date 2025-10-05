@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -8,7 +9,9 @@ const Util = {}
 Util.getAccountNav = async function (req, res, next) {
   let list = ""
   if (res.locals.loggedin) {
-    list = `<a href="/account/" title="Click to manage account">Welcome, ${res.locals.accountData.account_firstname}!</a>`
+    const account_id = res.locals.accountData.account_id
+    const accountData = await accountModel.getAccountDataById(account_id)
+    list = `<a href="/account/" title="Click to manage account">Welcome, ${accountData.account_firstname}!</a>`
     list += " | "
     list += `<a href="/account/logout" title="Click to log out">Logout</a>`
   } else {

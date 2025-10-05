@@ -384,6 +384,14 @@ fieldset {
   border: none;
 }
 
+legend {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--gray-dark);
+  margin-bottom: 0.25rem;
+}
+
 label {
   font-family: var(--font-heading);
   font-weight: bold;
@@ -426,7 +434,9 @@ fieldset div {
 #addInvForm fieldset button,
 #addClassForm fieldset button,
 #editInvForm fieldset button,
-#deleteInvForm fieldset button {
+#deleteInvForm fieldset button,
+#editAccInfoForm fieldset button,
+#editAccPassForm fieldset button {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -441,7 +451,9 @@ fieldset div {
 #addInvForm fieldset button:hover,
 #addClassForm fieldset button:hover,
 #editInvForm fieldset button:hover,
-#deleteInvForm fieldset button:hover {
+#deleteInvForm fieldset button:hover,
+#editAccInfoForm fieldset button:hover,
+#editAccPassForm fieldset button:hover {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -465,6 +477,33 @@ fieldset div {
     background-color: unset;
     padding: unset;
     margin: 1rem 0 0 0;
+}
+
+/***** Account and Inventory Management Containers *****/
+#accManagementContainer,
+#invManagementContainer {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#accManagementContainer h2,
+#invManagementContainer h2{
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 0.25rem;
+}
+
+#accManagementContainer h3,
+#invManagementContainer h3 {
+  font-family: var(--font-heading);
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: var(--gray-dark);
+  margin-bottom: 0.25rem;
 }
 
 /***** Screen Size Media Queries *****/

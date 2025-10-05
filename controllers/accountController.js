@@ -38,16 +38,15 @@ async function buildRegister(req, res, next) {
 async function buildAccManagement(req, res, next) {
   const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
-  const clientName = res.locals.accountData.account_firstname
-  const clientId = res.locals.accountData.account_id
-  const clientType = res.locals.accountData.account_type
+  const account_id = res.locals.accountData.account_id
+  const accountData = await accountModel.getAccountDataById(account_id)
   res.render("./account/account-management", {
     title: "Account Management",
     accountNav,
     nav,
-    clientName,
-    clientId,
-    clientType
+    clientName: accountData.account_firstname,
+    clientId: account_id,
+    clientType: accountData.account_type
   })
 }
 
@@ -269,7 +268,6 @@ async function changePassword(req, res, next) {
 * *************************************** */
 async function logoutUser(req, res) {
   res.clearCookie("jwt")
-  res.clearCookie("sessionId")
   return res.redirect("/")
 }
 

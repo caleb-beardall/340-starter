@@ -12,12 +12,13 @@
     <li><a href="../../inv/add-classification" title="View add new classification form">Add New Classification</a></li>
     <li><a href="../../inv/add-inventory" title="View add new inventory form">Add New Inventory</a></li>
 </ul>
+<div id="invManagementContainer">
+    <h2>Manage Inventory</h2>
+    <p>Choose a classification to see those inventory items.</p>
+    <%- classificationList %>
 
-<h2>Manage Inventory</h2>
-<p>Choose a classification to see those inventory items.</p>
-<%- classificationList %>
-
-<table id="inventoryDisplay"></table>
+    <table id="inventoryDisplay"></table>
+</div>
 
 <noscript>JavaScript must be enabled to use this page.</noscript>
 
