@@ -14,12 +14,16 @@ router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByI
 // Route to build the add classification view
 router.get(
     "/add-classification",
+    utilities.checkLogin,
+    utilities.checkUserAuthority,
     utilities.handleErrors(invController.buildAddClassification)
 )
 
 // Route to build the add inventory view
 router.get(
     "/add-inventory",
+    utilities.checkLogin,
+    utilities.checkUserAuthority,
     utilities.handleErrors(invController.buildAddInventory)
 )
 
@@ -42,6 +46,8 @@ router.post(
 // Route to build the inventory management view
 router.get(
     "/",
+    utilities.checkLogin,
+    utilities.checkUserAuthority,
     utilities.handleErrors(invController.buildInvManagement)
 )
 
@@ -50,6 +56,8 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 
 // Route to build the edit inventory view
 router.get("/edit/:inv_id",
+    utilities.checkLogin,
+    utilities.checkUserAuthority,
     utilities.handleErrors(invController.buildEditInventory)
 )
 
@@ -62,6 +70,8 @@ router.post("/update/",
 
 // Route to build the delete inventory view
 router.get("/delete/:inv_id",
+    utilities.checkLogin,
+    utilities.checkUserAuthority,
     utilities.handleErrors(invController.buildDeleteInventory)
 )
 

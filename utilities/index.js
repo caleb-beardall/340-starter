@@ -17,9 +17,8 @@ Util.getAccountNav = async function (req, res, next) {
   return list
 }
 
-
 /* ************************
- * Constructs the nav HTML unordered list
+ * Constructs the classifications nav HTML
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
@@ -161,6 +160,18 @@ Util.checkLogin = (req, res, next) => {
     next()
   } else {
     req.flash("notice-bad", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
+
+/* ****************************************
+* Middleware to check if account type is employee or admin
+**************************************** */
+Util.checkUserAuthority = (req, res, next) => {
+  if (res.locals.accountData.account_type === 'Employee' || res.locals.accountData.account_type === 'Admin') {
+    next()
+  } else {
+    req.flash("notice-bad", "Insufficient Credentials - Access Denied")
     return res.redirect("/account/login")
   }
 }

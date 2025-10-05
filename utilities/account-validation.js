@@ -5,7 +5,6 @@ const validate = {}
 
 /* ****************************************
 *  Login Data Validation Rules
-*  I CREATED THIS
 * *************************************** */
 validate.loginRules = () => {
     return [
@@ -79,7 +78,6 @@ validate.registrationRules = () => {
 
 /* ****************************************
 *  Check data and return errors or continue to login
-*  I CREATED THIS
 * *************************************** */
 validate.checkLogData = async (req, res, next) => {
     const { account_email } = req.body
