@@ -1,0 +1,80 @@
+<%# title %>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%# message %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form id="editAccInfoForm" action="/account/account-update" method="POST">
+    <fieldset>
+        <legend>Account Information</legend>
+        <label for="firstname">First Name</label>
+        <input
+            type="text"
+            name="account_firstname"
+            id="firstname"
+            pattern="^[A-Za-z ]+$"
+            title="Only letters and spaces allowed."
+            required
+            value="<%= locals.account_firstname %>">
+        
+        <label for="lastname">Last Name</label>
+        <input
+            type="text"
+            name="account_lastname"
+            id="lastname"
+            pattern="^[A-Za-z ]+$"
+            title="Only letters and spaces allowed."
+            required
+            value="<%= locals.account_lastname %>">
+            
+        <label for="email">Email Address</label>
+        <input
+            type="email"
+            name="account_email"
+            id="email"
+            title="A valid email is required."
+            required
+            value="<%= locals.account_email %>">
+
+        <button type="submit">Update Information</button>
+
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+    </fieldset>
+</form>
+
+<form id="editAccPassForm" action="/account/change-password" method="POST">
+    <fieldset>
+        <legend>Update Password</legend>
+        <label for="password">Password</label>
+        <input
+            type="password"
+            name="account_password"
+            id="password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+            title="Password must be at least 12 characters long, contain at least one uppercase letter, one number, and one special character."
+            required>
+
+        <div>
+            <p>Enterting a password will change your current password. Password must be at least 12 characters long, contain at least one uppercase letter, one number, and one special
+                character.</p>
+        </div>
+
+        <button type="submit">Update Password</button>
+
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+    </fieldset>
+</form>

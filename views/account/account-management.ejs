@@ -1,0 +1,17 @@
+<%# title %>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%# message %>
+<%- messages() %>
+
+<h2>Welcome, <%= clientName %></h2>
+<p><a href="/account/edit/<%= clientId %>" title="Click to update account information">Update Account</a></p>
+
+<% if (clientType === 'Employee' || clientType === 'Admin') { %>
+    <h3>Inventory Management</h3>
+    <p><a href="../../inv/" title="Click to view inventory management">Would you like to view, add, edit, or delete inventory?</a></p>
+<% } %>

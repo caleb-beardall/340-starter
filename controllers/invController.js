@@ -274,7 +274,7 @@ invCont.updateInventory = async function (req, res, next) {
       inv_color,
       classification_id,
       inv_id
-  })
+    })
   }
 }
 

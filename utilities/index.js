@@ -139,7 +139,7 @@ Util.checkJWTToken = (req, res, next) => {
    process.env.ACCESS_TOKEN_SECRET,
    function (err, accountData) {
     if (err) {
-     req.flash("notice-bad", "Please log in.") // I ADDED 'notice-bad' TO THIS
+     req.flash("notice-bad", "Please log in.")
      res.clearCookie("jwt")
      return res.redirect("/account/login")
     }

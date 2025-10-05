@@ -33,15 +33,21 @@ async function buildRegister(req, res, next) {
 }
 
 /* ****************************************
-*  Deliver management view
+*  Deliver account management view
 * *************************************** */
 async function buildAccManagement(req, res, next) {
   const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
-  res.render("./account/management", {
+  const clientName = res.locals.accountData.account_firstname
+  const clientId = res.locals.accountData.account_id
+  const clientType = res.locals.accountData.account_type
+  res.render("./account/account-management", {
     title: "Account Management",
     accountNav,
-    nav
+    nav,
+    clientName,
+    clientId,
+    clientType
   })
 }
 
@@ -149,4 +155,122 @@ async function accountLogin(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, buildAccManagement, registerAccount, accountLogin }
+/* ****************************************
+*  Deliver edit account view
+* *************************************** */
+async function buildEditAccount(req, res, next) {
+  const account_id = parseInt(req.params.account_id)
+  const accountNav = await utilities.getAccountNav(req, res)
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getAccountDataById(account_id)
+  const clientName = `${accountData.account_firstname} ${accountData.account_lastname}`
+  res.render("./account/edit-account", {
+    title: "Edit " + clientName + "'s Account",
+    accountNav,
+    nav,
+    errors: null,
+    account_id: accountData.account_id,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email
+  })
+}
+
+/* ****************************************
+*  Process account update
+* *************************************** */
+async function updateAccount(req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  } = req.body
+
+  const updateResults = await accountModel.updateAccountInfo(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  )
+
+  if (updateResults) {
+    const clientName = updateResults.account_firstname
+    req.flash("notice-good", `${clientName}, your account was successfully updated.`)
+    res.redirect("/account/")
+  } else {
+    const clientName = updateResults.account_firstname + " " + updateResults.account_lastname
+    req.flash("notice-bad", "Sorry, the account update failed.")
+    res.status(501).render("account/edit-account", {
+      title: "Edit " + clientName + "'s Account",
+      accountNav,
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    })
+  }
+}
+
+/* ****************************************
+*  Process password change
+* *************************************** */
+async function changePassword(req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
+  let nav = await utilities.getNav()
+  const { account_id, account_password } = req.body
+  const accountData = await accountModel.getAccountDataById(account_id)
+  const clientName = `${accountData.account_firstname} ${accountData.account_lastname}`
+
+  let hashedPassword
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash(
+      "notice-bad",
+      "Sorry, there was an error processing the password update."
+    )
+    res.status(500).render("account/edit-account", {
+      title: "Edit " + clientName + "'s Account",
+      accountNav,
+      nav,
+      errors: null,
+    })
+  }
+
+  const updateResults = await accountModel.changeUserPassword(account_id, hashedPassword)
+
+  if (updateResults) {
+    const clientName = updateResults.account_firstname
+    req.flash("notice-good", `${clientName}, your password was successfully updated.`)
+    res.redirect("/account/")
+  } else {
+    const clientName = updateResults.account_firstname + " " + updateResults.account_lastname
+    req.flash("notice-bad", "Sorry, the password change failed.")
+    res.status(501).render("account/edit-account", {
+      title: "Edit " + clientName + "'s Account",
+      accountNav,
+      nav,
+      errors: null,
+      account_id: updateResults.account_id,
+      account_firstname: updateResults.account_firstname,
+      account_lastname: updateResults.account_lastname,
+      account_email: updateResults.account_email
+    })
+  }
+}
+
+/* ****************************************
+*  Process logout request
+* *************************************** */
+async function logoutUser(req, res) {
+  res.clearCookie("jwt")
+  res.clearCookie("sessionId")
+  return res.redirect("/")
+}
+
+module.exports = { buildLogin, buildRegister, buildAccManagement, registerAccount, accountLogin, buildEditAccount, updateAccount, changePassword, logoutUser }
