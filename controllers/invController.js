@@ -10,10 +10,12 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const className = data[0].classification_name
   res.render("./inventory/classification", {
     title: className + " Vehicles",
+    accountNav,
     nav,
     grid,
   })
@@ -26,10 +28,12 @@ invCont.buildByInventoryId = async function (req, res, next) {
   const inventoryId = req.params.inventoryId
   const data = await invModel.getVehicleByInventoryId(inventoryId)
   const grid = await utilities.buildVehicleGrid(data)
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const yearMakeModel = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
   res.render("./inventory/vehicle", {
     title: yearMakeModel,
+    accountNav,
     nav,
     grid
   })
@@ -39,9 +43,11 @@ invCont.buildByInventoryId = async function (req, res, next) {
  *  Deliver add new classification view
  * ************************** */
 invCont.buildAddClassification = async function (req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   res.render("./inventory/add-classification", {
     title: "Add New Classification",
+    accountNav,
     nav,
     errors: null
   })
@@ -51,10 +57,12 @@ invCont.buildAddClassification = async function (req, res, next) {
  *  Deliver add new inventory view
  * ************************** */
 invCont.buildAddInventory = async function (req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const classificationList = await utilities.buildClassificationList()
   res.render("./inventory/add-inventory", {
     title: "Add New Inventory",
+    accountNav,
     nav,
     classificationList,
     errors: null
@@ -65,17 +73,20 @@ invCont.buildAddInventory = async function (req, res, next) {
  *  Process new classification
  * ************************** */
 invCont.addClassification = async function (req, res) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const classificationList = await utilities.buildClassificationList()
   const { classification_name } = req.body
   
   const classResult = await invModel.createClassification(classification_name)
   if (classResult) {
+    const accountNav = await utilities.getAccountNav(req, res)
     nav = await utilities.getNav()
     req.flash("notice-good", `The ${classification_name} classification was successfully added to inventory.`
     )
     res.status(201).render("inventory/inventory-management", {
       title: "Inventory Management",
+      accountNav,
       nav,
       classificationList,
       errors: null
@@ -84,6 +95,7 @@ invCont.addClassification = async function (req, res) {
     req.flash("notice-bad", "Sorry, the classification update failed.")
     req.status(501).render("inventory/add-classification", {
       title: "Add New Classification",
+      accountNav,
       nav
     })
   }
@@ -93,6 +105,7 @@ invCont.addClassification = async function (req, res) {
  *  Process new inventory
  * ************************** */
 invCont.addInventory = async function (req, res) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const classificationList = await utilities.buildClassificationList()
   const {
@@ -127,6 +140,7 @@ invCont.addInventory = async function (req, res) {
     )
     res.status(201).render("inventory/inventory-management", {
       title: "Inventory Management",
+      accountNav,
       nav,
       classificationList,
       errors: null
@@ -135,6 +149,7 @@ invCont.addInventory = async function (req, res) {
     req.flash("notice-bad", "Sorry, the inventory update failed.")
     res.status(501).render("inventory/add-inventory", {
       title: "Add New Inventory",
+      accountNav,
       nav,
       classificationList
     })
@@ -145,10 +160,12 @@ invCont.addInventory = async function (req, res) {
  *  Build inventory management view
  * ************************** */
 invCont.buildInvManagement = async function (req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const classificationList = await utilities.buildClassificationList()
   res.render("./inventory/inventory-management", {
     title: "Inventory Management",
+    accountNav,
     nav,
     classificationList,
     errors: null
@@ -173,12 +190,14 @@ invCont.getInventoryJSON = async (req, res, next) => {
  * ************************** */
 invCont.buildEditInventory = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const itemData = await invModel.getVehicleByInventoryId(inv_id)
   const classificationList = await utilities.buildClassificationList(itemData.classification_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/edit-inventory", {
     title: "Edit " + itemName,
+    accountNav,
     nav,
     classificationList: classificationList,
     errors: null,
@@ -200,6 +219,7 @@ invCont.buildEditInventory = async function (req, res, next) {
  *  Process inventory update
  * ************************** */
 invCont.updateInventory = async function (req, res, next) {
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const {
     inv_make,
@@ -239,6 +259,7 @@ invCont.updateInventory = async function (req, res, next) {
     req.flash("notice-bad", "Sorry, the insert failed.")
     res.status(501).render("inventory/edit-inventory", {
       title: "Edit " + itemName,
+      accountNav,
       nav,
       classificationList: classificationList,
       errors: null,
@@ -262,11 +283,13 @@ invCont.updateInventory = async function (req, res, next) {
  * ************************** */
 invCont.buildDeleteInventory = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
+  const accountNav = await utilities.getAccountNav(req, res)
   let nav = await utilities.getNav()
   const itemData = await invModel.getVehicleByInventoryId(inv_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/delete-confirm", {
     title: "Delete " + itemName,
+    accountNav,
     nav,
     errors: null,
     inv_id: itemData.inv_id,
@@ -283,14 +306,14 @@ invCont.buildDeleteInventory = async function (req, res, next) {
 invCont.deleteInventory = async function (req, res, next) {
   const inv_id = parseInt(req.body.inv_id)
 
-  const deleteResult = await invModel.deleteInventory(inv_id)
+  const deleteResult = 0 // await invModel.deleteInventory(inv_id)
 
   if (deleteResult) {
     req.flash("notice-good", "The deletion was successful.")
     res.redirect("/inv/")
   } else {
     req.flash("notice-bad", "Sorry, the deletion failed.")
-    res.redirect("/inv/delete/inv_id")
+    res.redirect("/inv/delete/" + inv_id)
   }
 }
 
