@@ -36,7 +36,6 @@
                 name="review_content"
                 id="revcontent"
                 title="10–1000 characters. Letters, numbers, spaces, and common punctuation allowed."
-                value="<%= locals.review_content %>"
                 rows="10"
                 minlength="10"
                 maxlength="1000"
@@ -54,8 +53,7 @@
                 type="hidden"
                 name="review_stars"
                 id="review_stars"
-                value="<%= locals.review_stars || 0 %>"
-                required>
+                value="<%= locals.review_stars || 0 %>">
 
         <button type="submit">Leave Review</button>
 
