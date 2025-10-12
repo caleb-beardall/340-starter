@@ -436,7 +436,8 @@ fieldset div {
 #editInvForm fieldset button,
 #deleteInvForm fieldset button,
 #editAccInfoForm fieldset button,
-#editAccPassForm fieldset button {
+#editAccPassForm fieldset button,
+#addRevForm fieldset button {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -453,7 +454,8 @@ fieldset div {
 #editInvForm fieldset button:hover,
 #deleteInvForm fieldset button:hover,
 #editAccInfoForm fieldset button:hover,
-#editAccPassForm fieldset button:hover {
+#editAccPassForm fieldset button:hover,
+#addRevForm fieldset button:hover {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.25rem;
@@ -504,6 +506,37 @@ fieldset div {
   font-size: 1.25rem;
   color: var(--gray-dark);
   margin-bottom: 0.25rem;
+}
+
+/***** Review Stars *****/
+#addRevForm fieldset div {
+  color: unset;
+  background-color: unset;
+  padding: unset;
+  margin: 0 0 0.5rem 0;
+}
+
+.star-rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.star-rating span {
+  color: var(--gray-dark);
+  transition: color 0.25s ease;
+}
+
+.star-rating span.active,
+.star-rating span.hover {
+  color: #facc15;
+}
+
+.star-rating span:hover {
+  transform: scale(1.1);
 }
 
 /***** Screen Size Media Queries *****/

@@ -1,0 +1,64 @@
+<%# title %>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%# message %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error=> { %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form id="addRevForm" action="/review/add-review" method="POST">
+    <fieldset>
+        <label for="revtitle">Title</label>
+        <input
+            type="text"
+            name="review_title"
+            id="revtitle"
+            placeholder="How was your experienc?"
+            pattern="^[A-Za-z0-9 ,.!?'&quot;-]{3,100}$"
+            title="3–100 characters. Letters, numbers, spaces, and basic punctuation allowed."
+            value="<%= locals.review_title %>"
+            required>
+
+            <label for="revcontent">Content</label>
+            <input type="text"
+                name="review_content"
+                id="revcontent"
+                placeholder="We value your detailed feedback!"
+                pattern="^[A-Za-z0-9 ,.!?'\&quot;()\-\n\r]{10,1000}$"
+                title="10–1000 characters. Letters, numbers, spaces, and common punctuation allowed."
+                value="<%= locals.review_content %>"
+                required>
+        
+            <div class="star-rating" id="starRating">
+                <span data-value="5">★</span>
+                <span data-value="4">★</span>
+                <span data-value="3">★</span>
+                <span data-value="2">★</span>
+                <span data-value="1">★</span>
+            </div>
+
+            <input
+                type="hidden"
+                name="review_stars"
+                id="review_stars"
+                value="<%= locals.review_stars || 0 %>"
+                required>
+
+        <button type="submit">Leave Review</button>
+
+    </fieldset>
+</form>
+
+<script src="../../js/add-review.js"></script>
