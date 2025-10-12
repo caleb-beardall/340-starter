@@ -410,6 +410,15 @@ select {
   margin-bottom: 0.5rem;
 }
 
+textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
 input:focus:valid {
   color: var(--green-dark);
   background-color: #34D39950; /* ~30% opacity */
@@ -481,9 +490,10 @@ fieldset div {
     margin: 1rem 0 0 0;
 }
 
-/***** Account and Inventory Management Containers *****/
+/***** Account, Inventory, and Review Management *****/
 #accManagementContainer,
-#invManagementContainer {
+#invManagementContainer,
+#revManagementContainer {
   grid-column: span 2;
   display: flex;
   flex-direction: column;
@@ -491,7 +501,8 @@ fieldset div {
 }
 
 #accManagementContainer h2,
-#invManagementContainer h2{
+#invManagementContainer h2,
+#revManagementContainer h2 {
   font-family: var(--font-heading);
   font-weight: bold;
   font-size: 1.5rem;

@@ -35,5 +35,25 @@ validate.reviewRules = () => {
 /* ****************************************
 *  Check data and return errors or continue to review
 * *************************************** */
+validate.checkRevData = async (req, res, next) => {
+    const { review_title, review_content, review_stars } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        const accountNav = await utilities.getAccountNav(req, res)
+        let nav = await utilities.getNav()
+        res.render("review/add-review", {
+            errors,
+            title: "Leave Review",
+            accountNav,
+            nav,
+            review_title,
+            review_content,
+            review_stars
+        })
+        return
+    }
+    next()
+}
 
 module.exports = validate

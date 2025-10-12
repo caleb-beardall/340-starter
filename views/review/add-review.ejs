@@ -26,20 +26,21 @@
             name="review_title"
             id="revtitle"
             placeholder="How was your experienc?"
-            pattern="^[A-Za-z0-9 ,.!?'&quot;-]{3,100}$"
+            pattern='^[A-Za-z0-9 ,.!?"\'()-]{3,100}$'
             title="3–100 characters. Letters, numbers, spaces, and basic punctuation allowed."
             value="<%= locals.review_title %>"
             required>
 
             <label for="revcontent">Content</label>
-            <input type="text"
+            <textarea
                 name="review_content"
                 id="revcontent"
-                placeholder="We value your detailed feedback!"
-                pattern="^[A-Za-z0-9 ,.!?'\&quot;()\-\n\r]{10,1000}$"
                 title="10–1000 characters. Letters, numbers, spaces, and common punctuation allowed."
                 value="<%= locals.review_content %>"
-                required>
+                rows="10"
+                minlength="10"
+                maxlength="1000"
+                required><%= locals.review_content || '' %></textarea>
         
             <div class="star-rating" id="starRating">
                 <span data-value="5">★</span>
