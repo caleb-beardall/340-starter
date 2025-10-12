@@ -22,7 +22,7 @@ validate.reviewRules = () => {
             .trim()
             .isLength({ min: 10, max: 1000 })
             .withMessage("Content must be between 10 and 1000 characters.")
-            .matches(/^[A-Za-z0-9 ,.!?"'()\-\n\r]+$/)
+            .matches(/^[A-Za-z0-9 ,.!?"'-]+$/)
             .withMessage("Content contains invalid characters."),
 
         // review stars rules
